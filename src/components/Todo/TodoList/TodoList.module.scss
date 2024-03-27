@@ -1,0 +1,28 @@
+.todoList {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+
+    &__items {
+        padding: 0;
+        width: 90%;
+    }
+
+    &__item {
+        display: block;
+        list-style: none;
+        width: 100%;
+        padding: 10px;
+        border-bottom: 1px solid black;
+        cursor: pointer;
+
+        &.completed {
+            text-decoration: line-through;
+            color: rgba($color: #000000, $alpha: 0.6);
+        }
+    }
+
+}
+  
+  

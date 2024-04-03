@@ -1,11 +1,16 @@
 import { useState } from 'react';
 import uniqid from "uniqid";
 import style from './TodoForm.module.scss'
+import { useDispatch } from 'react-redux';
+import { addTodo } from '../../../actions/todos.actions';
 
-const TodoForm = ({ setTodos }) => {
+const TodoForm = () => {
 
     const [inputValue, setInputValue] = useState('');
 
+    const dispatch = useDispatch()
+
+    
     const handleInputChange = (event) => {
         setInputValue(event.target.value);
     };
@@ -13,7 +18,7 @@ const TodoForm = ({ setTodos }) => {
     const handleSubmit = () => {
         if (inputValue.trim() !== '') {
             const newTodo = { id: uniqid(), text: inputValue, isComplete: false };
-            setTodos(prevTodos => [...prevTodos, newTodo]);
+            dispatch(addTodo(newTodo));
             setInputValue('');
         }
     };

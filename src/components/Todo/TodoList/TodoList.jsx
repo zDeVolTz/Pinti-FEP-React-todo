@@ -1,15 +1,14 @@
 import style from './TodoList.module.scss'
+import { useSelector, useDispatch } from 'react-redux'
+import { toggleTodo } from '../../../actions/todos.actions';
 
-const TodoList = ({ todos, setTodos }) => {
-
-    const toggleTodo = (id) => {
-        setTodos(prevTodos => 
-            prevTodos.map(element => 
-                element.id === id ? { ...element, isComplete: !element.isComplete } : element
-            )
-        );
-       
-    };
+const TodoList = () => {
+    const  { todos }  = useSelector((state) => state.todos)
+    const dispatch = useDispatch()
+    
+    const handleToggleTodo = (id) => {
+        dispatch(toggleTodo(id));
+    }
 
     const sortedTodos = [...todos].sort((a, b) => {
 
@@ -22,12 +21,13 @@ const TodoList = ({ todos, setTodos }) => {
         }
     });
 
+
     return (
         <div className={style.todoList}>
             <h2 className={style.todoList__title}>Перелік справ</h2>
             <ul className={style.todoList__items}>
                 {sortedTodos.map(element => (
-                    <li key={element.id} onClick={() => toggleTodo(element.id)} className={`${style.todoList__item} ${element.isComplete ? style.completed : '' }`}>
+                    <li key={element.id} onClick={() => handleToggleTodo(element.id)} className={`${style.todoList__item} ${element.isComplete ? style.completed : '' }`}>
                         {element.text}
                     </li>
                 ))}
